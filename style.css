@@ -1,319 +1,1155 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap");
-:root {
-  --card-width: 200px;
-  --card-height: 300px;
-  --card-transition-duration: 800ms;
-  --card-transition-easing: ease;
+html {
+  background: #0C0019;
 }
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 body {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.787);
-  overflow: hidden;
+    font-family: 'Nova Flat';font-size: 22px;
 }
-
-button {
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-button:focus {
-  outline: none;
-  border: none;
-}
-
-.app {
+.container1 {
+  font-size: 80px;
+  width: 80%;
+  outline: dashed 1px black;
+  /* Setup */
   position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.app__bg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: -5;
-  filter: blur(8px);
-  pointer-events: none;
-  user-select: none;
-  overflow: hidden;
-}
-.app__bg::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  z-index: 1;
-  opacity: 0.8;
-}
-.app__bg__image {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) translateX(var(--image-translate-offset, 0));
-  width: 180%;
-  height: 180%;
-  transition: transform 1000ms ease, opacity 1000ms ease;
-  overflow: hidden;
-}
-.app__bg__image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.app__bg__image.current--image {
-  opacity: 1;
-  --image-translate-offset: 0;
-}
-.app__bg__image.previous--image, .app__bg__image.next--image {
-  opacity: 0;
-}
-.app__bg__image.previous--image {
-  --image-translate-offset: -25%;
-}
-.app__bg__image.next--image {
-  --image-translate-offset: 25%;
+  font-family: 'Nova Flat';
 }
 
-.cardList {
+.child {
+  width: 550px;
+  height: 250px;
+  /* Center vertically and horizontally */
   position: absolute;
-  width: calc(3 * var(--card-width));
-  height: auto;
-}
-.cardList__btn {
-  --btn-size: 35px;
-  width: var(--btn-size);
-  height: var(--btn-size);
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 100;
-}
-.cardList__btn.btn--left {
-  left: -5%;
-}
-.cardList__btn.btn--right {
-  right: -5%;
-}
-.cardList__btn .icon {
-  width: 100%;
-  height: 100%;
-}
-.cardList__btn .icon svg {
-  width: 100%;
-  height: 100%;
-}
-.cardList .cards__wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  perspective: 1000px;
-}
-
-.card {
-  --card-translateY-offset: 100vh;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) translateX(var(--card-translateX-offset)) translateY(var(--card-translateY-offset)) rotateY(var(--card-rotation-offset)) scale(var(--card-scale-offset));
-  display: inline-block;
-  width: var(--card-width);
-  height: var(--card-height);
-  transition: transform var(--card-transition-duration) var(--card-transition-easing);
-  user-select: none;
-}
-.card::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  z-index: 1;
-  transition: opacity var(--card-transition-duration) var(--card-transition-easing);
-  opacity: calc(1 - var(--opacity));
-}
-.card__image {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.card__image img {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.card.current--card {
-  --current-card-rotation-offset: 0;
-  --card-translateX-offset: 0;
-  --card-rotation-offset: var(--current-card-rotation-offset);
-  --card-scale-offset: 1.2;
-  --opacity: 0.8;
-}
-.card.previous--card {
-  --card-translateX-offset: calc(-1 * var(--card-width) * 1.1);
-  --card-rotation-offset: 25deg;
-}
-.card.next--card {
-  --card-translateX-offset: calc(var(--card-width) * 1.1);
-  --card-rotation-offset: -25deg;
-}
-.card.previous--card, .card.next--card {
-  --card-scale-offset: 0.9;
-  --opacity: 0.4;
-}
-
-.infoList {
-  position: absolute;
-  width: calc(3 * var(--card-width));
-  height: var(--card-height);
-  pointer-events: none;
-}
-.infoList .info__wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-  perspective: 1000px;
-  transform-style: preserve-3d;
-}
-
-.info {
-  margin-bottom: calc(var(--card-height) / 8);
-  margin-left: calc(var(--card-width) / 1.5);
-  transform: translateZ(2rem);
-  transition: transform var(--card-transition-duration) var(--card-transition-easing);
-}
-.info .text {
-  position: relative;
-  font-family: "Montserrat";
-  font-size: calc(var(--card-width) * var(--text-size-offset, 0.2));
-  white-space: nowrap;
+  top: 240px;
+  left: 41%;
+  margin: -25px 0 0 -25px; /* Apply negative top and left margins to truly center the element */
   color: #fff;
-  width: fit-content;
 }
-.info .name,
-.info .location {
-  text-transform: uppercase;
-}
-.info .location {
-  font-weight: 800;
-}
-.info .location {
-  --mg-left: 40px;
-  --text-size-offset: 0.12;
-  font-weight: 600;
-  margin-left: var(--mg-left);
-  margin-bottom: calc(var(--mg-left) / 2);
-  padding-bottom: 0.8rem;
-}
-.info .location::before, .info .location::after {
-  content: "";
+.child2 {
+  font-size: 60px;
+  width: 550px;
+  height: 250px;
+  /* Center vertically and horizontally */
   position: absolute;
-  background: #fff;
-  left: 0%;
-  transform: translate(calc(-1 * var(--mg-left)), -50%);
-}
-.info .location::before {
-  top: 50%;
-  width: 20px;
-  height: 5px;
-}
-.info .location::after {
-  bottom: 0;
-  width: 60px;
-  height: 2px;
-}
-.info .description {
-  --text-size-offset: 0.065;
-  font-weight: 500;
-}
-.info.current--info {
-  opacity: 1;
-  display: block;
-}
-.info.previous--info, .info.next--info {
-  opacity: 0;
-  display: none;
-}
-
-.loading__wrapper {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #000;
-  z-index: 200;
-}
-.loading__wrapper .loader--text {
+  top: 340px;
+  left: 41%;
+  margin: -25px 0 0 -25px; /* Apply negative top and left margins to truly center the element */
   color: #fff;
-  font-family: "Montserrat";
-  font-weight: 500;
-  margin-bottom: 1.4rem;
 }
-.loading__wrapper .loader {
-  position: relative;
-  width: 200px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.25);
-}
-.loading__wrapper .loader span {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: red;
-  transform: scaleX(0);
-  transform-origin: left;
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@media only screen and (min-width: 800px) {
-  :root {
-    --card-width: 250px;
-    --card-height: 400px;
+#redblocks > * {
+  transform: translate3d(160px, -93px, 0);
+  -webkit-animation: moveblocks 4s 1s ease infinite;
+          animation: moveblocks 4s 1s ease infinite;
+}
+
+@-webkit-keyframes moveblocks {
+  0% {
+    transform: translate3d(160px, -93px, 0);
+  }
+  50%, 100% {
+    transform: translate(0);
   }
 }
-.support {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  padding: 10px;
-  display: flex;
+
+@keyframes moveblocks {
+  0% {
+    transform: translate3d(160px, -93px, 0);
+  }
+  50%, 100% {
+    transform: translate(0);
+  }
 }
-.support a {
-  margin: 0 10px;
-  color: #fff;
-  font-size: 1.8rem;
-  backface-visibility: hidden;
-  transition: all 150ms ease;
+#firstBlock {
+  transform: translate3d(160px, -93px, 0);
+  -webkit-animation: firstBlock 4s 1s ease infinite;
+          animation: firstBlock 4s 1s ease infinite;
 }
-.support a:hover {
-  transform: scale(1.1);
+
+#blockdis {
+  -webkit-animation: blockdis 4s 1s ease infinite;
+          animation: blockdis 4s 1s ease infinite;
+}
+
+@-webkit-keyframes blockdis {
+  30% {
+    opacity: 1;
+  }
+  40%, 100% {
+    opacity: 0;
+    transform: translate3d(-160px, 93px, 0);
+  }
+}
+
+@keyframes blockdis {
+  30% {
+    opacity: 1;
+  }
+  40%, 100% {
+    opacity: 0;
+    transform: translate3d(-160px, 93px, 0);
+  }
+}
+@-webkit-keyframes firstBlock {
+  0%, 15% {
+    opacity: 0;
+  }
+  40%, 100% {
+    opacity: 1;
+  }
+}
+@keyframes firstBlock {
+  0%, 15% {
+    opacity: 0;
+  }
+  40%, 100% {
+    opacity: 1;
+  }
+}
+#redblocksparticles g:nth-child(1) polygon {
+  opacity: 0.35;
+  -webkit-animation: glow 4s 1s ease infinite;
+          animation: glow 4s 1s ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) polygon {
+  opacity: 0.35;
+  -webkit-animation: glow 4s 1s ease infinite;
+          animation: glow 4s 1s ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) polygon {
+  opacity: 0.35;
+  -webkit-animation: glow 4s 1s ease infinite;
+          animation: glow 4s 1s ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) polygon {
+  opacity: 0.35;
+  -webkit-animation: glow 4s 1s ease infinite;
+          animation: glow 4s 1s ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(1) {
+  -webkit-animation: dots 4s 1050ms ease infinite;
+          animation: dots 4s 1050ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(1) {
+  -webkit-animation: dots 4s 1050ms ease infinite;
+          animation: dots 4s 1050ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(1) {
+  -webkit-animation: dots 4s 1050ms ease infinite;
+          animation: dots 4s 1050ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(1) {
+  -webkit-animation: dots 4s 1050ms ease infinite;
+          animation: dots 4s 1050ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(2) {
+  -webkit-animation: dots 4s 1100ms ease infinite;
+          animation: dots 4s 1100ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(2) {
+  -webkit-animation: dots 4s 1100ms ease infinite;
+          animation: dots 4s 1100ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(2) {
+  -webkit-animation: dots 4s 1100ms ease infinite;
+          animation: dots 4s 1100ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(2) {
+  -webkit-animation: dots 4s 1100ms ease infinite;
+          animation: dots 4s 1100ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(3) {
+  -webkit-animation: dots 4s 1150ms ease infinite;
+          animation: dots 4s 1150ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(3) {
+  -webkit-animation: dots 4s 1150ms ease infinite;
+          animation: dots 4s 1150ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(3) {
+  -webkit-animation: dots 4s 1150ms ease infinite;
+          animation: dots 4s 1150ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(3) {
+  -webkit-animation: dots 4s 1150ms ease infinite;
+          animation: dots 4s 1150ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(4) {
+  -webkit-animation: dots 4s 1200ms ease infinite;
+          animation: dots 4s 1200ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(4) {
+  -webkit-animation: dots 4s 1200ms ease infinite;
+          animation: dots 4s 1200ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(4) {
+  -webkit-animation: dots 4s 1200ms ease infinite;
+          animation: dots 4s 1200ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(4) {
+  -webkit-animation: dots 4s 1200ms ease infinite;
+          animation: dots 4s 1200ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(5) {
+  -webkit-animation: dots 4s 1250ms ease infinite;
+          animation: dots 4s 1250ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(5) {
+  -webkit-animation: dots 4s 1250ms ease infinite;
+          animation: dots 4s 1250ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(5) {
+  -webkit-animation: dots 4s 1250ms ease infinite;
+          animation: dots 4s 1250ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(5) {
+  -webkit-animation: dots 4s 1250ms ease infinite;
+          animation: dots 4s 1250ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(6) {
+  -webkit-animation: dots 4s 1300ms ease infinite;
+          animation: dots 4s 1300ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(6) {
+  -webkit-animation: dots 4s 1300ms ease infinite;
+          animation: dots 4s 1300ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(6) {
+  -webkit-animation: dots 4s 1300ms ease infinite;
+          animation: dots 4s 1300ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(6) {
+  -webkit-animation: dots 4s 1300ms ease infinite;
+          animation: dots 4s 1300ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(7) {
+  -webkit-animation: dots 4s 1350ms ease infinite;
+          animation: dots 4s 1350ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(7) {
+  -webkit-animation: dots 4s 1350ms ease infinite;
+          animation: dots 4s 1350ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(7) {
+  -webkit-animation: dots 4s 1350ms ease infinite;
+          animation: dots 4s 1350ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(7) {
+  -webkit-animation: dots 4s 1350ms ease infinite;
+          animation: dots 4s 1350ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(8) {
+  -webkit-animation: dots 4s 1400ms ease infinite;
+          animation: dots 4s 1400ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(8) {
+  -webkit-animation: dots 4s 1400ms ease infinite;
+          animation: dots 4s 1400ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(8) {
+  -webkit-animation: dots 4s 1400ms ease infinite;
+          animation: dots 4s 1400ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(8) {
+  -webkit-animation: dots 4s 1400ms ease infinite;
+          animation: dots 4s 1400ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(9) {
+  -webkit-animation: dots 4s 1450ms ease infinite;
+          animation: dots 4s 1450ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(9) {
+  -webkit-animation: dots 4s 1450ms ease infinite;
+          animation: dots 4s 1450ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(9) {
+  -webkit-animation: dots 4s 1450ms ease infinite;
+          animation: dots 4s 1450ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(9) {
+  -webkit-animation: dots 4s 1450ms ease infinite;
+          animation: dots 4s 1450ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(10) {
+  -webkit-animation: dots 4s 1500ms ease infinite;
+          animation: dots 4s 1500ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(10) {
+  -webkit-animation: dots 4s 1500ms ease infinite;
+          animation: dots 4s 1500ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(10) {
+  -webkit-animation: dots 4s 1500ms ease infinite;
+          animation: dots 4s 1500ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(10) {
+  -webkit-animation: dots 4s 1500ms ease infinite;
+          animation: dots 4s 1500ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(11) {
+  -webkit-animation: dots 4s 1550ms ease infinite;
+          animation: dots 4s 1550ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(11) {
+  -webkit-animation: dots 4s 1550ms ease infinite;
+          animation: dots 4s 1550ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(11) {
+  -webkit-animation: dots 4s 1550ms ease infinite;
+          animation: dots 4s 1550ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(11) {
+  -webkit-animation: dots 4s 1550ms ease infinite;
+          animation: dots 4s 1550ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(12) {
+  -webkit-animation: dots 4s 1600ms ease infinite;
+          animation: dots 4s 1600ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(12) {
+  -webkit-animation: dots 4s 1600ms ease infinite;
+          animation: dots 4s 1600ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(12) {
+  -webkit-animation: dots 4s 1600ms ease infinite;
+          animation: dots 4s 1600ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(12) {
+  -webkit-animation: dots 4s 1600ms ease infinite;
+          animation: dots 4s 1600ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(13) {
+  -webkit-animation: dots 4s 1650ms ease infinite;
+          animation: dots 4s 1650ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(13) {
+  -webkit-animation: dots 4s 1650ms ease infinite;
+          animation: dots 4s 1650ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(13) {
+  -webkit-animation: dots 4s 1650ms ease infinite;
+          animation: dots 4s 1650ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(13) {
+  -webkit-animation: dots 4s 1650ms ease infinite;
+          animation: dots 4s 1650ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(14) {
+  -webkit-animation: dots 4s 1700ms ease infinite;
+          animation: dots 4s 1700ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(14) {
+  -webkit-animation: dots 4s 1700ms ease infinite;
+          animation: dots 4s 1700ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(14) {
+  -webkit-animation: dots 4s 1700ms ease infinite;
+          animation: dots 4s 1700ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(14) {
+  -webkit-animation: dots 4s 1700ms ease infinite;
+          animation: dots 4s 1700ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(15) {
+  -webkit-animation: dots 4s 1750ms ease infinite;
+          animation: dots 4s 1750ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(15) {
+  -webkit-animation: dots 4s 1750ms ease infinite;
+          animation: dots 4s 1750ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(15) {
+  -webkit-animation: dots 4s 1750ms ease infinite;
+          animation: dots 4s 1750ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(15) {
+  -webkit-animation: dots 4s 1750ms ease infinite;
+          animation: dots 4s 1750ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(16) {
+  -webkit-animation: dots 4s 1800ms ease infinite;
+          animation: dots 4s 1800ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(16) {
+  -webkit-animation: dots 4s 1800ms ease infinite;
+          animation: dots 4s 1800ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(16) {
+  -webkit-animation: dots 4s 1800ms ease infinite;
+          animation: dots 4s 1800ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(16) {
+  -webkit-animation: dots 4s 1800ms ease infinite;
+          animation: dots 4s 1800ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(17) {
+  -webkit-animation: dots 4s 1850ms ease infinite;
+          animation: dots 4s 1850ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(17) {
+  -webkit-animation: dots 4s 1850ms ease infinite;
+          animation: dots 4s 1850ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(17) {
+  -webkit-animation: dots 4s 1850ms ease infinite;
+          animation: dots 4s 1850ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(17) {
+  -webkit-animation: dots 4s 1850ms ease infinite;
+          animation: dots 4s 1850ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(18) {
+  -webkit-animation: dots 4s 1900ms ease infinite;
+          animation: dots 4s 1900ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(18) {
+  -webkit-animation: dots 4s 1900ms ease infinite;
+          animation: dots 4s 1900ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(18) {
+  -webkit-animation: dots 4s 1900ms ease infinite;
+          animation: dots 4s 1900ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(18) {
+  -webkit-animation: dots 4s 1900ms ease infinite;
+          animation: dots 4s 1900ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(1) g circle:nth-child(19) {
+  -webkit-animation: dots 4s 1950ms ease infinite;
+          animation: dots 4s 1950ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(2) g circle:nth-child(19) {
+  -webkit-animation: dots 4s 1950ms ease infinite;
+          animation: dots 4s 1950ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(3) g circle:nth-child(19) {
+  -webkit-animation: dots 4s 1950ms ease infinite;
+          animation: dots 4s 1950ms ease infinite;
+}
+
+#redblocksparticles g:nth-child(4) g circle:nth-child(19) {
+  -webkit-animation: dots 4s 1950ms ease infinite;
+          animation: dots 4s 1950ms ease infinite;
+}
+
+@-webkit-keyframes glow {
+  0%, 45% {
+    opacity: 0;
+  }
+  60%, 100% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes glow {
+  0%, 45% {
+    opacity: 0;
+  }
+  60%, 100% {
+    opacity: 0.35;
+  }
+}
+@-webkit-keyframes dots {
+  0%, 35% {
+    transform: translate(0);
+    opacity: 0;
+  }
+  60%, 80% {
+    transform: translate(55px, -35px);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(55px, -35px);
+    opacity: 0;
+  }
+}
+@keyframes dots {
+  0%, 35% {
+    transform: translate(0);
+    opacity: 0;
+  }
+  60%, 80% {
+    transform: translate(55px, -35px);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(55px, -35px);
+    opacity: 0;
+  }
+}
+#purplebg > :nth-child(1) {
+  -webkit-animation: up 2s 500ms ease infinite alternate;
+          animation: up 2s 500ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(2) {
+  -webkit-animation: up 2s 1000ms ease infinite alternate;
+          animation: up 2s 1000ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(3) {
+  -webkit-animation: up 2s 1500ms ease infinite alternate;
+          animation: up 2s 1500ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(4) {
+  -webkit-animation: up 2s 2000ms ease infinite alternate;
+          animation: up 2s 2000ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(5) {
+  -webkit-animation: up 2s 2500ms ease infinite alternate;
+          animation: up 2s 2500ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(6) {
+  -webkit-animation: up 2s 3000ms ease infinite alternate;
+          animation: up 2s 3000ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(7) {
+  -webkit-animation: up 2s 3500ms ease infinite alternate;
+          animation: up 2s 3500ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(8) {
+  -webkit-animation: up 2s 4000ms ease infinite alternate;
+          animation: up 2s 4000ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(9) {
+  -webkit-animation: up 2s 4500ms ease infinite alternate;
+          animation: up 2s 4500ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(10) {
+  -webkit-animation: up 2s 5000ms ease infinite alternate;
+          animation: up 2s 5000ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(11) {
+  -webkit-animation: up 2s 5500ms ease infinite alternate;
+          animation: up 2s 5500ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(12) {
+  -webkit-animation: up 2s 6000ms ease infinite alternate;
+          animation: up 2s 6000ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(13) {
+  -webkit-animation: up 2s 6500ms ease infinite alternate;
+          animation: up 2s 6500ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(14) {
+  -webkit-animation: up 2s 7000ms ease infinite alternate;
+          animation: up 2s 7000ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(15) {
+  -webkit-animation: up 2s 7500ms ease infinite alternate;
+          animation: up 2s 7500ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(16) {
+  -webkit-animation: up 2s 8000ms ease infinite alternate;
+          animation: up 2s 8000ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(17) {
+  -webkit-animation: up 2s 8500ms ease infinite alternate;
+          animation: up 2s 8500ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(18) {
+  -webkit-animation: up 2s 9000ms ease infinite alternate;
+          animation: up 2s 9000ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(19) {
+  -webkit-animation: up 2s 9500ms ease infinite alternate;
+          animation: up 2s 9500ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(20) {
+  -webkit-animation: up 2s 10000ms ease infinite alternate;
+          animation: up 2s 10000ms ease infinite alternate;
+}
+
+#purplebg > :nth-child(21) {
+  -webkit-animation: up 2s 10500ms ease infinite alternate;
+          animation: up 2s 10500ms ease infinite alternate;
+}
+
+@-webkit-keyframes up {
+  to {
+    transform: translate(0, -25px);
+  }
+}
+
+@keyframes up {
+  to {
+    transform: translate(0, -25px);
+  }
+}
+#bottomparticles > :nth-child(1) {
+  -webkit-animation: particles 4s 300ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 300ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles2 > :nth-child(1) {
+  -webkit-animation: particles 4s 300ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 300ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#redglowparticles > :nth-child(1) {
+  -webkit-animation: particles 4s 300ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 300ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles > :nth-child(2) {
+  -webkit-animation: particles 4s 600ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 600ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles2 > :nth-child(2) {
+  -webkit-animation: particles 4s 600ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 600ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#redglowparticles > :nth-child(2) {
+  -webkit-animation: particles 4s 600ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 600ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles > :nth-child(3) {
+  -webkit-animation: particles 4s 900ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 900ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles2 > :nth-child(3) {
+  -webkit-animation: particles 4s 900ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 900ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#redglowparticles > :nth-child(3) {
+  -webkit-animation: particles 4s 900ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 900ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles > :nth-child(4) {
+  -webkit-animation: particles 4s 1200ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 1200ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles2 > :nth-child(4) {
+  -webkit-animation: particles 4s 1200ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 1200ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#redglowparticles > :nth-child(4) {
+  -webkit-animation: particles 4s 1200ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 1200ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles > :nth-child(5) {
+  -webkit-animation: particles 4s 1500ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 1500ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles2 > :nth-child(5) {
+  -webkit-animation: particles 4s 1500ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 1500ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#redglowparticles > :nth-child(5) {
+  -webkit-animation: particles 4s 1500ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 1500ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles > :nth-child(6) {
+  -webkit-animation: particles 4s 1800ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 1800ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles2 > :nth-child(6) {
+  -webkit-animation: particles 4s 1800ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 1800ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#redglowparticles > :nth-child(6) {
+  -webkit-animation: particles 4s 1800ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 1800ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles > :nth-child(7) {
+  -webkit-animation: particles 4s 2100ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 2100ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles2 > :nth-child(7) {
+  -webkit-animation: particles 4s 2100ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 2100ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#redglowparticles > :nth-child(7) {
+  -webkit-animation: particles 4s 2100ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 2100ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles > :nth-child(8) {
+  -webkit-animation: particles 4s 2400ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 2400ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles2 > :nth-child(8) {
+  -webkit-animation: particles 4s 2400ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 2400ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#redglowparticles > :nth-child(8) {
+  -webkit-animation: particles 4s 2400ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 2400ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles > :nth-child(9) {
+  -webkit-animation: particles 4s 2700ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 2700ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles2 > :nth-child(9) {
+  -webkit-animation: particles 4s 2700ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 2700ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#redglowparticles > :nth-child(9) {
+  -webkit-animation: particles 4s 2700ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 2700ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles > :nth-child(10) {
+  -webkit-animation: particles 4s 3000ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 3000ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles2 > :nth-child(10) {
+  -webkit-animation: particles 4s 3000ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 3000ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#redglowparticles > :nth-child(10) {
+  -webkit-animation: particles 4s 3000ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 3000ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles > :nth-child(11) {
+  -webkit-animation: particles 4s 3300ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 3300ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles2 > :nth-child(11) {
+  -webkit-animation: particles 4s 3300ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 3300ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#redglowparticles > :nth-child(11) {
+  -webkit-animation: particles 4s 3300ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 3300ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles > :nth-child(12) {
+  -webkit-animation: particles 4s 3600ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 3600ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#bottomparticles2 > :nth-child(12) {
+  -webkit-animation: particles 4s 3600ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 3600ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+#redglowparticles > :nth-child(12) {
+  -webkit-animation: particles 4s 3600ms ease infinite alternate, p 2s ease infinite alternate;
+          animation: particles 4s 3600ms ease infinite alternate, p 2s ease infinite alternate;
+}
+
+@-webkit-keyframes p {
+  85%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes p {
+  85%, 100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes particles {
+  0%, 100% {
+    transform: translate(0);
+  }
+  50% {
+    transform: translate(10px, 15px);
+  }
+}
+@keyframes particles {
+  0%, 100% {
+    transform: translate(0);
+  }
+  50% {
+    transform: translate(10px, 15px);
+  }
+}
+.particlespoly {
+  -webkit-animation: p 2s ease infinite alternate;
+          animation: p 2s ease infinite alternate;
+}
+
+#d-app g:nth-child(1) {
+  -webkit-animation: updown 2s 200ms ease-in-out infinite alternate;
+          animation: updown 2s 200ms ease-in-out infinite alternate;
+}
+
+#d-app g:nth-child(2) {
+  -webkit-animation: updown 2s 400ms ease-in-out infinite alternate;
+          animation: updown 2s 400ms ease-in-out infinite alternate;
+}
+
+#d-app g:nth-child(3) {
+  -webkit-animation: updown 2s 600ms ease-in-out infinite alternate;
+          animation: updown 2s 600ms ease-in-out infinite alternate;
+}
+
+#d-apps2 g:nth-child(1) {
+  -webkit-animation: updown 2s 200ms ease-in-out infinite alternate;
+          animation: updown 2s 200ms ease-in-out infinite alternate;
+}
+
+#d-apps2 g:nth-child(2) {
+  -webkit-animation: updown 2s 400ms ease-in-out infinite alternate;
+          animation: updown 2s 400ms ease-in-out infinite alternate;
+}
+
+#d-apps2 g:nth-child(3) {
+  -webkit-animation: updown 2s 600ms ease-in-out infinite alternate;
+          animation: updown 2s 600ms ease-in-out infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(1) {
+  -webkit-animation: updown 2s 50ms ease infinite alternate;
+          animation: updown 2s 50ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(2) {
+  -webkit-animation: updown 2s 100ms ease infinite alternate;
+          animation: updown 2s 100ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(3) {
+  -webkit-animation: updown 2s 150ms ease infinite alternate;
+          animation: updown 2s 150ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(4) {
+  -webkit-animation: updown 2s 200ms ease infinite alternate;
+          animation: updown 2s 200ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(5) {
+  -webkit-animation: updown 2s 250ms ease infinite alternate;
+          animation: updown 2s 250ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(6) {
+  -webkit-animation: updown 2s 300ms ease infinite alternate;
+          animation: updown 2s 300ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(7) {
+  -webkit-animation: updown 2s 350ms ease infinite alternate;
+          animation: updown 2s 350ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(8) {
+  -webkit-animation: updown 2s 400ms ease infinite alternate;
+          animation: updown 2s 400ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(9) {
+  -webkit-animation: updown 2s 450ms ease infinite alternate;
+          animation: updown 2s 450ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(10) {
+  -webkit-animation: updown 2s 500ms ease infinite alternate;
+          animation: updown 2s 500ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(11) {
+  -webkit-animation: updown 2s 550ms ease infinite alternate;
+          animation: updown 2s 550ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(12) {
+  -webkit-animation: updown 2s 600ms ease infinite alternate;
+          animation: updown 2s 600ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(13) {
+  -webkit-animation: updown 2s 650ms ease infinite alternate;
+          animation: updown 2s 650ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(14) {
+  -webkit-animation: updown 2s 700ms ease infinite alternate;
+          animation: updown 2s 700ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(15) {
+  -webkit-animation: updown 2s 750ms ease infinite alternate;
+          animation: updown 2s 750ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(16) {
+  -webkit-animation: updown 2s 800ms ease infinite alternate;
+          animation: updown 2s 800ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(17) {
+  -webkit-animation: updown 2s 850ms ease infinite alternate;
+          animation: updown 2s 850ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(18) {
+  -webkit-animation: updown 2s 900ms ease infinite alternate;
+          animation: updown 2s 900ms ease infinite alternate;
+}
+
+#d-apps2wrapper g:nth-child(3) g > circle:nth-child(19) {
+  -webkit-animation: updown 2s 950ms ease infinite alternate;
+          animation: updown 2s 950ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(1) {
+  -webkit-animation: updown 2s 50ms ease infinite alternate;
+          animation: updown 2s 50ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(2) {
+  -webkit-animation: updown 2s 100ms ease infinite alternate;
+          animation: updown 2s 100ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(3) {
+  -webkit-animation: updown 2s 150ms ease infinite alternate;
+          animation: updown 2s 150ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(4) {
+  -webkit-animation: updown 2s 200ms ease infinite alternate;
+          animation: updown 2s 200ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(5) {
+  -webkit-animation: updown 2s 250ms ease infinite alternate;
+          animation: updown 2s 250ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(6) {
+  -webkit-animation: updown 2s 300ms ease infinite alternate;
+          animation: updown 2s 300ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(7) {
+  -webkit-animation: updown 2s 350ms ease infinite alternate;
+          animation: updown 2s 350ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(8) {
+  -webkit-animation: updown 2s 400ms ease infinite alternate;
+          animation: updown 2s 400ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(9) {
+  -webkit-animation: updown 2s 450ms ease infinite alternate;
+          animation: updown 2s 450ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(10) {
+  -webkit-animation: updown 2s 500ms ease infinite alternate;
+          animation: updown 2s 500ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(11) {
+  -webkit-animation: updown 2s 550ms ease infinite alternate;
+          animation: updown 2s 550ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(12) {
+  -webkit-animation: updown 2s 600ms ease infinite alternate;
+          animation: updown 2s 600ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(13) {
+  -webkit-animation: updown 2s 650ms ease infinite alternate;
+          animation: updown 2s 650ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(14) {
+  -webkit-animation: updown 2s 700ms ease infinite alternate;
+          animation: updown 2s 700ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(15) {
+  -webkit-animation: updown 2s 750ms ease infinite alternate;
+          animation: updown 2s 750ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(16) {
+  -webkit-animation: updown 2s 800ms ease infinite alternate;
+          animation: updown 2s 800ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(17) {
+  -webkit-animation: updown 2s 850ms ease infinite alternate;
+          animation: updown 2s 850ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(18) {
+  -webkit-animation: updown 2s 900ms ease infinite alternate;
+          animation: updown 2s 900ms ease infinite alternate;
+}
+
+#d-appswrapper g:nth-child(2) g > circle:nth-child(19) {
+  -webkit-animation: updown 2s 950ms ease infinite alternate;
+          animation: updown 2s 950ms ease infinite alternate;
+}
+
+@-webkit-keyframes updown {
+  100% {
+    transform: translate(0, -20px);
+  }
+}
+
+@keyframes updown {
+  100% {
+    transform: translate(0, -20px);
+  }
+}
+#Layer_1 > g:nth-child(2) > g:nth-child(18) > g:nth-child(12) {
+  -webkit-animation: arrows 1s ease-in-out infinite alternate, p 2s ease infinite alternate;
+          animation: arrows 1s ease-in-out infinite alternate, p 2s ease infinite alternate;
+}
+
+@-webkit-keyframes arrows {
+  to {
+    transform: translate(25px, 25px);
+  }
+}
+
+@keyframes arrows {
+  to {
+    transform: translate(25px, 25px);
+  }
+}
+#Layer_1 > g:nth-child(2) > g:nth-child(17) > g:nth-child(13) {
+  -webkit-animation: arrows2 1s ease-in-out infinite alternate, p 2s ease infinite alternate;
+          animation: arrows2 1s ease-in-out infinite alternate, p 2s ease infinite alternate;
+}
+
+@-webkit-keyframes arrows2 {
+  to {
+    transform: translate(-25px, -25px);
+  }
+}
+
+@keyframes arrows2 {
+  to {
+    transform: translate(-25px, -25px);
+  }
+}
+#Layer_1 > g:nth-child(2) > g:nth-child(17) > g:nth-child(12) {
+  -webkit-animation: arrows 1s ease-in-out infinite alternate, p 2s ease infinite alternate;
+          animation: arrows 1s ease-in-out infinite alternate, p 2s ease infinite alternate;
 }
